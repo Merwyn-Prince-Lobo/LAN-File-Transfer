@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN Transfer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-brand">⚡ LAN<span class="accent">Transfer</span></div>
+        <div class="nav-info">
+            <span class="chip">📦 {{ room_name }}</span>
+            <span class="chip">🖥️ {{ my_name }}</span>
+            <span class="chip">📡 {{ my_ip }}</span>
+            <a href="/logout" class="btn-logout">Leave Room</a>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+
+        <div class="panel left-panel">
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>📡 Peers in Room</h2>
+                    <span class="badge" id="peer-count">0</span>
+                </div>
+                <div id="peers-list" class="peers-list">
+                    <div class="empty-state">Scanning for peers in this room...</div>
+                </div>
+
+                <!-- Manual peer add - for when college WiFi blocks UDP broadcasts -->
+                <div class="manual-add">
+                    <div class="manual-add-header" onclick="toggleManualAdd()">
+                        ➕ Add peer manually <span class="manual-hint">(if auto-discovery fails)</span>
+                        <span id="manual-arrow">▼</span>
+                    </div>
+                    <div id="manual-add-form" class="hidden">
+                        <div class="manual-inputs">
+                            <input type="text" id="manual-ip" placeholder="192.168.x.x" style="flex:1">
+                            <input type="number" id="manual-port" placeholder="5000" value="5000" style="width:80px">
+                            <button class="btn-secondary" onclick="addPeerManually()">Add</button>
+                        </div>
+                        <div id="manual-status" class="status-msg hidden"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>📤 Send File</h2>
+                </div>
+
+                <div class="input-group">
+                    <label>Target Peer</label>
+                    <select id="target-select">
+                        <option value="">-- select a peer first --</option>
+                    </select>
+                </div>
+
+                <div class="drop-zone" id="drop-zone">
+                    <div class="drop-icon">📁</div>
+                    <p>Drag & drop file here<br><span class="hint-text">or click to browse</span></p>
+                    <input type="file" id="file-input" hidden>
+                </div>
+
+                <div id="selected-file" class="selected-file hidden">
+                    <span id="file-name"></span>
+                    <span id="file-size" class="file-size"></span>
+                </div>
+
+                <div id="progress-container" class="progress-container hidden">
+                    <div class="progress-label">
+                        <span id="progress-text">Encrypting...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div id="send-status" class="status-msg hidden"></div>
+
+                <button class="btn-primary" id="send-btn" disabled>
+                    🔐 Encrypt & Send
+                </button>
+            </section>
+
+        </div>
+
+        <div class="panel right-panel">
+            <section class="card full-height">
+                <div class="card-header">
+                    <h2>📥 Received Files</h2>
+                    <button class="btn-secondary small" onclick="loadFiles()">↻ Refresh</button>
+                </div>
+                <div id="files-list" class="files-list">
+                    <div class="empty-state">No files received yet</div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

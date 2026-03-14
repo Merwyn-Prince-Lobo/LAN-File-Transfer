@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN Transfer — Create Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="logo-area">
+                <div class="logo-icon">⚡</div>
+                <h1>LAN<span class="accent">Transfer</span></h1>
+                <p class="subtitle">Create a room. Share the passkey with your group.<br>Only people with the same passkey can see each other.</p>
+            </div>
+
+            {% if error %}
+            <div class="error-msg">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="input-group">
+                    <label>Room Name</label>
+                    <input type="text" name="room_name" placeholder="e.g. merwyns-room, cs-batch-b" autofocus required>
+                </div>
+                <div class="input-group">
+                    <label>Passkey <span class="label-hint">(share this with your group)</span></label>
+                    <input type="password" name="passkey" placeholder="min 4 characters" required>
+                </div>
+                <button type="submit" class="btn-primary">Create Room →</button>
+            </form>
+
+            <p class="hint">⚠️ Everyone in your group must use the <strong>same passkey</strong> to join your room</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN Transfer — Join Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="logo-area">
+                <div class="logo-icon">🔒</div>
+                <h1>LAN<span class="accent">Transfer</span></h1>
+                {% if room_name %}
+                <div class="room-badge">📦 {{ room_name }}</div>
+                {% endif %}
+                <p class="subtitle">Enter the passkey to join this room.</p>
+            </div>
+
+            {% if error %}
+            <div class="error-msg">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="input-group">
+                    <label>Passkey</label>
+                    <input type="password" name="passkey" placeholder="enter room passkey" autofocus required>
+                </div>
+                <button type="submit" class="btn-primary">Join Room →</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
